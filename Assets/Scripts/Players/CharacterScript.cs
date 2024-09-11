@@ -6,6 +6,13 @@ using UnityEngine;
 public class CharacterScript : MainPlayerScripts
 {
 
+    public static CharacterScript Instance;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
     private void Start()
     {
         Setup_PlayerSpeed();
@@ -22,18 +29,21 @@ public class CharacterScript : MainPlayerScripts
             if (Input.GetKeyDown(KeyCode.J)) 
             {
                 UsingSkill1Test();
+                anim.SetTrigger("attack1");
                 newcooldown = 0;
                 canUsingSkill = false;
             }
             if (Input.GetKeyDown(KeyCode.K))
             {
                 UsingSkill2Test();
+                anim.SetTrigger("attack2");
                 newcooldown = 0;
                 canUsingSkill = false;
             }
             if (Input.GetKeyDown(KeyCode.L))
             {
                 UsingSkill3Test();
+                anim.SetTrigger("attack3");
                 newcooldown = 0;
                 canUsingSkill = false;
             }
@@ -67,7 +77,6 @@ public class CharacterScript : MainPlayerScripts
     #endregion
 
     #region Character Skills
-    private playerStates _nowState;
     float newcooldown = 0;
     bool SkillCooldownCheck()
     {
@@ -78,24 +87,26 @@ public class CharacterScript : MainPlayerScripts
     }
 
     private bool canUsingSkill = true;
-    public GameObject attackingtest;
+
+    public GameObject attackingtestPrefab;
+
     public virtual void UsingSkill1Test()
     {
-        anim.SetTrigger("attack1");
-        Instantiate(attackingtest, gameObject.transform.position,Quaternion.identity);
+        GameObject skillObject = ObjectPool.Instance.GetFromPool("Skill1", attackingtestPrefab, transform.position, Quaternion.identity);
+    }
+
+    void UsingSkill2Test()
+    {
     }
     void UsingSkill3Test()
     {
-        anim.SetTrigger("attack2");
-    }
-    void UsingSkill2Test()
-    {
-        anim.SetTrigger("attack3");
     }
     #endregion
 
     #region Animation
     public Animator anim;
+    private playerStates _nowState;
+
     void SetUp_Anim()
     {
         anim = GetComponent<Animator>();
