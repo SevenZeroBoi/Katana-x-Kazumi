@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class MainEnemiesScript : MonoBehaviour
 {
-    public float Health;
+    [HideInInspector] public float Health;
 
     public static MainEnemiesScript Instance;
+    public SO_Enemies enemyStats;
 
     private void Awake()
     {
+        Health = enemyStats.enemyHealth;
         Instance = this;
         //Instance = GameObject.FindGameObjectWithTag("Boss").GetComponent<MainEnemiesScript>();
     }
