@@ -25,7 +25,6 @@ public class PlayerMainScript : MonoBehaviour
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         transform.position = transform.position + new Vector3(moveX, moveY).normalized * Time.deltaTime * currentMoveSpeed;
-
     }
 
     private void Start()
@@ -92,6 +91,10 @@ public class PlayerMainScript : MonoBehaviour
         if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0)
         {
             _movementAnim = 0;
+        }
+        else if (Input.GetAxisRaw("Vertical") == 1 && Input.GetAxisRaw("Horizontal") == -1)
+        {
+            _movementAnim = -1;
         }
         else if (Input.GetAxisRaw("Vertical") == 1 ||(Input.GetAxisRaw("Vertical") != 1 && Input.GetAxisRaw("Horizontal") == 1))
         {
